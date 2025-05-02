@@ -1,0 +1,1 @@
+Add FastMCP proxy server (proxy.py) to forward requests to the main news-api-mcp server via stdio. 
