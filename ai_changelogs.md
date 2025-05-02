@@ -1,1 +1,3 @@
 - Added FastMCP proxy server (proxy.py) to forward requests to the main news-api-mcp server via stdio. This enables transport bridging and easier integration with local/remote clients. 
+- Refactored src/news_api_mcp/server.py to use FastMCP v2 API (@https://github.com/jlowin/fastmcp), replacing legacy MCP server logic with @mcp.tool functions for all tools.
+- Integration tests require a valid NEWS_API_KEY to pass (401 Unauthorized if missing or invalid). 

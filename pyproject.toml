@@ -2,11 +2,12 @@
 name = "news-api-mcp"
 version = "0.1.0"
 description = "Model Context Protocol (MCP) server for accessing the News API"
-readme = "README.md"
+# readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "mcp>=1.0.0",
     "httpx>=0.28.1",
-    "mcp>=1.1.2",
+    "fastmcp>=2.2.6"
 ]
 
 [build-system]
@@ -19,3 +20,6 @@ news-api-mcp = "news_api_mcp:main"
 [[project.authors]]
 name = "berlinbra"
 email = "BMBpsn@gmail.com"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/news_api_mcp"]

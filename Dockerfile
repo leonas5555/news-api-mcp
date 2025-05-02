@@ -7,8 +7,10 @@ WORKDIR /app
 # Copy the pyproject.toml for dependencies
 COPY pyproject.toml /app/
 
-# Install dependencies
-RUN pip install uvicorn 'httpx>=0.28.1' 'mcp>=1.1.2'
+# Install build backend and project dependencies
+RUN pip install --upgrade pip && \
+    pip install hatchling && \
+    pip install .
 
 # Copy the rest of the application code
 COPY src/ /app/src/
@@ -19,5 +21,4 @@ ENV NEWS_API_KEY=${NEWS_API_KEY}
 # Expose the port that the app runs on
 EXPOSE 8000
 
-# Run the application
-CMD ["python", "-m", "src.news_api_mcp.server"]
+ENTRYPOINT ["fastmcp", "run", "src/news_api_mcp/server.py:mcp", "-t", "sse", "--host", "0.0.0.0", "--port", "8000"]
