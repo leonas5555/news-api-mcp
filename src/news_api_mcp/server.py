@@ -2,7 +2,7 @@ import logging
 from fastmcp import FastMCP
 import os
 import httpx
-from .tools import (
+from news_api_mcp.tools import (
     make_news_api_request,
     format_articles,
     format_sources,
@@ -13,11 +13,19 @@ from .tools import (
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s] %(levelname)s %(name)s: %(message)s')
 logger = logging.getLogger("news_api_mcp")
 
+# Check for API key 
 if not API_KEY:
     logger.error("Missing NEWS_API_KEY environment variable")
     raise ValueError("Missing NEWS_API_KEY environment variable")
+else:
+    logger.info("NEWS_API_KEY is set")
 
-mcp = FastMCP("News API MCP")
+MCP_SERVER_NAME = "News API MCP"
+logger.info(f"Starting {MCP_SERVER_NAME} server...")
+
+# Initialize FastMCP with dependencies
+mcp = FastMCP(MCP_SERVER_NAME, dependencies=["httpx>=0.28.1"])
+logger.info(f"FastMCP server initialized. Ready to accept requests.")
 
 @mcp.tool()
 async def search_news(
